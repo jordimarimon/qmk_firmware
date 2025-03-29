@@ -228,7 +228,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
                  XXXXXXX,            KC_W,                KC_E,               KC_R,               KC_T,          KC_Y,           KC_U,               KC_I,               KC_O,               XXXXXXX,
                  MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_S),  MT(MOD_LSFT, KC_D), MT(MOD_LCTL, KC_F), KC_G,          KC_H,           MT(MOD_RCTL, KC_J), MT(MOD_RSFT, KC_K), MT(MOD_LALT, KC_L), MT(MOD_RGUI, KC_P),
-        KC_CAPS, KC_Z,               KC_X,                KC_C,               KC_V,               KC_B,          KC_N,           KC_M,               KC_Q,               XXXXXXX,            XXXXXXX,               TO(_BASE),
+        KC_CAPS, KC_Z,               KC_X,                KC_C,               KC_V,               KC_B,          KC_N,           KC_M,               KC_Q,               XXXXXXX,            XXXXXXX,            TO(_BASE),
                                                           KC_BSPC,            KC_ESC,             MT_TOG_LAYER2, MT_TOG_LAYER1,  KC_ENT,             KC_SPC
     ),
 
@@ -275,7 +275,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_on(_SYMBOL);
                 layer1_toggled = true;
             }
-            return false;
+            return false; // Skip default handling
 
         case MT_TOG_LAYER2:
             if (record->event.pressed) {
@@ -294,10 +294,50 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_on(_NUMBER);
                 layer2_toggled = true;
             }
-            return false;
+            return false; // Skip default handling
+
+        case KC_BSPC:
+            if (record->event.pressed) {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    // Shift is being held down
+                    register_code(KC_DEL); // Send Delete
+                } else {
+                    // Shift is not being held down
+                    register_code(KC_BSPC); // Send Backspace
+                }
+            } else {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    // Shift is being held down
+                    unregister_code(KC_DEL); // Release Delete
+                } else {
+                    // Shift is not being held down
+                    unregister_code(KC_BSPC); // Release Backspace
+                }
+            }
+            return false; // Skip default handling
+
+        case KC_SPC:
+            if (record->event.pressed) {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    // Shift is being held down
+                    register_code(KC_TAB); // Send Tab
+                } else {
+                    // Shift is not being held down
+                    register_code(KC_SPC); // Send Space
+                }
+            } else {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    // Shift is being held down
+                    unregister_code(KC_TAB); // Release Tab
+                } else {
+                    // Shift is not being held down
+                    unregister_code(KC_SPC); // Release Space
+                }
+            }
+            return false; // Skip default handling
     }
 
-    return true;
+    return true; // Continue with default handling for other keycodes
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
