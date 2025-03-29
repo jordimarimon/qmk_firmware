@@ -261,8 +261,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-static bool layer1_toggled = false; // Flag to track if Layer 1 is toggled
-static bool layer2_toggled = false; // Flag to track if Layer 2 is toggled
+static uint16_t sym_tap_timer;
+static bool sym_layer_toggled = false;
+
+static uint16_t num_tap_timer;
+static bool num_layer_toggled = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // https://docs.qmk.fm/feature_advanced_keycodes#checking-modifier-state
@@ -271,21 +274,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
         case MT_TOG_LAYER1:
-            if (record->event.pressed) {
-                // Is being pressed, start hold behaviour
-                layer1_toggled = false;
-                layer_on(_SYMBOL);
-            } else if (!record->tap.count) {
-                // Not pressed anymore and is not a tap, stop hold behaviour
-                layer_off(_SYMBOL);
-            } else if (layer1_toggled) {
-                // Not pressed anymore and is been tap and the layer is active
-                layer_off(_SYMBOL);
-                layer1_toggled = false;
-            } else {
-                // Not pressed anymore and is been tap and the layer is not active
-                layer_on(_SYMBOL);
-                layer1_toggled = true;
+            if (record->event.pressed) { // Key is being pressed
+                // Start the timer
+                sym_tap_timer = timer_read();
+
+                if (!IS_LAYER_ON(_SYMBOL)) {
+                    // Momentarily activate layer
+                    layer_on(_SYMBOL);
+                }
+            } else { // Key is released
+                if (timer_elapsed(sym_tap_timer) < TAPPING_TERM) {
+                    // Consider it a tap
+                    if (sym_layer_toggled) {
+                        layer_off(_SYMBOL);
+                    }
+
+                    sym_layer_toggled = !sym_layer_toggled;
+                } else if (IS_LAYER_ON(_SYMBOL)) {
+                    layer_off(_SYMBOL); // Turn off if it was momentary
+                    sym_layer_toggled = false;
+                }
             }
 
             update_tri_layer(_SYMBOL, _NUMBER, _FUNC);
@@ -293,21 +301,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false; // Skip default handling
 
         case MT_TOG_LAYER2:
-            if (record->event.pressed) {
-                // Is being pressed, start hold behaviour
-                layer2_toggled = false;
-                layer_on(_NUMBER);
-            } else if (!record->tap.count) {
-                // Not pressed anymore and is not a tap, stop hold behaviour
-                layer_off(_NUMBER);
-            } else if (layer2_toggled) {
-                // Not pressed anymore and is been tap and the layer is active
-                layer_off(_NUMBER);
-                layer2_toggled = false;
-            } else {
-                // Not pressed anymore and is been tap and the layer is not active
-                layer_on(_NUMBER);
-                layer2_toggled = true;
+            if (record->event.pressed) { // Key is being pressed
+                // Start the timer
+                num_tap_timer = timer_read();
+
+                if (!IS_LAYER_ON(_NUMBER)) {
+                    // Momentarily activate layer
+                    layer_on(_NUMBER);
+                }
+            } else { // Key is released
+                if (timer_elapsed(num_tap_timer) < TAPPING_TERM) {
+                    // Consider it a tap
+                    if (num_layer_toggled) {
+                        layer_off(_NUMBER);
+                    }
+
+                    num_layer_toggled = !num_layer_toggled;
+                } else if (IS_LAYER_ON(_NUMBER)) {
+                    layer_off(_NUMBER); // Turn off if it was momentary
+                    num_layer_toggled = false;
+                }
             }
 
             update_tri_layer(_SYMBOL, _NUMBER, _FUNC);
