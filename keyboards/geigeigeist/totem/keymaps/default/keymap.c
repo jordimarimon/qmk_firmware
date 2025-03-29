@@ -219,45 +219,56 @@ enum custom_keycodes {
     MT_TOG_LAYER2,
 };
 
-static bool layer1_toggled = false; // Flag to track if Layer 1 is toggled
-static bool layer2_toggled = false; // Flag to track if Layer 2 is toggled
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
+    LAYOUT(
+        'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R',
+   'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R',
+                  'L', 'L', 'L',  'R', 'R', 'R'
+    );
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     [_BASE] = LAYOUT(
-                 XXXXXXX,            KC_W,                KC_E,               KC_R,               KC_T,          KC_Y,           KC_U,               KC_I,               KC_O,               XXXXXXX,
-                 MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_S),  MT(MOD_LSFT, KC_D), MT(MOD_LCTL, KC_F), KC_G,          KC_H,           MT(MOD_RCTL, KC_J), MT(MOD_RSFT, KC_K), MT(MOD_LALT, KC_L), MT(MOD_RGUI, KC_P),
-        KC_CAPS, KC_Z,               KC_X,                KC_C,               KC_V,               KC_B,          KC_N,           KC_M,               KC_Q,               XXXXXXX,            XXXXXXX,            TO(_BASE),
-                                                          KC_BSPC,            KC_ESC,             MT_TOG_LAYER2, MT_TOG_LAYER1,  KC_ENT,             KC_SPC
+                 XXXXXXX,            KC_W,                 KC_E,                   KC_R,               KC_T,           KC_Y,           KC_U,               KC_I,               KC_O,               XXXXXXX,
+                 LGUI_T(KC_A),       LALT_T(KC_S),         LSFT_T(KC_D),           LCTL_T(KC_F),       KC_G,           KC_H,           RCTL_T(KC_J),       RSFT_T(KC_K),       LALT_T(KC_L),       RGUI_T(KC_P),
+        KC_CAPS, KC_Z,               KC_X,                 KC_C,                   KC_V,               KC_B,           KC_N,           KC_M,               KC_Q,               XXXXXXX,            XXXXXXX,            TO(_BASE),
+                                                           KC_BSPC,                KC_ESC,             MT_TOG_LAYER2,  MT_TOG_LAYER1,  KC_ENT,             KC_SPC
     ),
 
     [_SYMBOL] = LAYOUT(
-                 _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,
-                 _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,
-        _______, _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,               _______,
-                                                          _______,            _______,            _______,       _______,        _______,            _______
+                 _______,            LSFT(KC_COMMA),       RSA(KC_QUOTE),          LSFT(KC_DOT),       LSFT(KC_4),     LSFT(KC_6),     KC_LBRC,            LSFT(KC_SEMICOLON), KC_RBRC,            _______,
+                 LGUI_T(LSFT(KC_5)), LALT_T(KC_SEMICOLON), LSFT_T(RALT(KC_QUOTE)), LCTL_T(KC_EQUAL),   LSFT(KC_EQUAL), LSFT(KC_7),     RCTL_T(LSFT(KC_9)), RSFT_T(KC_DOT),     LALT_T(LSFT(KC_0)), RGUI_T(KC_SLASH),
+        _______, LSFT(KC_1),         LSFT(KC_8),           KC_GRAVE,               KC_MINUS,           LSFT(KC_SLASH), LSFT(KC_BSLS),  LSFT(KC_LBRC),      KC_COMMA,           LSFT(KC_RBRC),      LSFT(KC_3),         _______,
+                                                           _______,                _______,            _______,        _______,        _______,            _______
     ),
 
 
     [_NUMBER] = LAYOUT(
-                 _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,
-                 _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,
-        _______, _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,               _______,
-                                                          _______,            _______,            _______,       _______,        _______,            _______
+                 _______,            _______,              _______,                _______,            _______,        _______,        _______,            _______,            _______,            _______,
+                 _______,            _______,              _______,                _______,            _______,        _______,        _______,            _______,            _______,            _______,
+        _______, _______,            _______,              _______,                _______,            _______,        _______,        _______,            _______,            _______,            _______,            _______,
+                                                           _______,                _______,            _______,        _______,        _______,            _______
     ),
 
     [_FUNC] = LAYOUT(
-                 _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,
-                 _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,
-        _______, _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,               _______,
-                                                          _______,            _______,            _______,       _______,        _______,            _______
+                 _______,            _______,              _______,                _______,            _______,        _______,        _______,            _______,            _______,            _______,
+                 _______,            _______,              _______,                _______,            _______,        _______,        _______,            _______,            _______,            _______,
+        _______, _______,            _______,              _______,                _______,            _______,        _______,        _______,            _______,            _______,            _______,            _______,
+                                                           _______,                _______,            _______,        _______,        _______,            _______
     )
 
 };
 
+static bool layer1_toggled = false; // Flag to track if Layer 1 is toggled
+static bool layer2_toggled = false; // Flag to track if Layer 2 is toggled
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // https://docs.qmk.fm/feature_advanced_keycodes#checking-modifier-state
+    // https://docs.qmk.fm/mod_tap#intercepting-mod-taps
+    // https://docs.qmk.fm/feature_layers#functions
+
     switch (keycode) {
         case MT_TOG_LAYER1:
             if (record->event.pressed) {
@@ -276,6 +287,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_on(_SYMBOL);
                 layer1_toggled = true;
             }
+
+            update_tri_layer(_SYMBOL, _NUMBER, _FUNC);
+
             return false; // Skip default handling
 
         case MT_TOG_LAYER2:
@@ -295,6 +309,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_on(_NUMBER);
                 layer2_toggled = true;
             }
+
+            update_tri_layer(_SYMBOL, _NUMBER, _FUNC);
+
             return false; // Skip default handling
 
         case KC_BSPC:
@@ -374,11 +391,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_N);
             }
             return false; // Skip default handling
+
+        case LGUI_T(LSFT(KC_5)):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(LSFT(KC_5));
+                return false; // Skip default handling
+            }
+            break;
+
+        case LSFT_T(RALT(KC_QUOTE)):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(RALT(KC_QUOTE));
+                return false; // Skip default handling
+            }
+            break;
+
+        case RCTL_T(LSFT(KC_9)):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(LSFT(KC_9));
+                return false; // Skip default handling
+            }
+            break;
+
+        case LALT_T(LSFT(KC_0)):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(LSFT(KC_0));
+                return false; // Skip default handling
+            }
+            break;
     }
 
-    return true; // Continue with default handling for other keycodes
+    // Continue with default handling for other keycodes
+    return true;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    return state;
+    return update_tri_layer_state(state, _SYMBOL, _NUMBER, _FUNC);
 }

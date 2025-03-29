@@ -23,6 +23,7 @@
 
 // Hold-Tap
 #define TAPPING_TERM 200
+#define CHORDAL_HOLD
 
 // Auto Shift
 #define NO_AUTO_SHIFT_ALPHA
