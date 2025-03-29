@@ -246,9 +246,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     [_NUMBER] = LAYOUT(
-                 _______,            _______,              _______,                _______,            _______,        _______,        _______,            _______,            _______,            _______,
-                 _______,            _______,              _______,                _______,            _______,        _______,        _______,            _______,            _______,            _______,
-        _______, _______,            _______,              _______,                _______,            _______,        _______,        _______,            _______,            _______,            _______,            _______,
+                 _______,            _______,              KC_BSLS,                RALT(KC_X),         _______,        _______,        KC_7,               KC_8,               KC_9,               _______,
+                 LGUI_T(RALT(KC_1)), LALT_T(LSFT(KC_2)),   LSFT_T(LSFT(KC_GRAVE)), LCTL_T(KC_MINUS),   RALT(KC_SLASH), _______,        RCTL_T(KC_4),       RSFT_T(KC_5),       LALT_T(KC_6),       RGUI_T(KC_0),
+        _______, _______,            _______,              KC_QUOTE,               LSFT(KC_QUOTE),     _______,        _______,        KC_1,               KC_2,               KC_3,               _______,            _______,
                                                            _______,                _______,            _______,        _______,        _______,            _______
     ),
 
@@ -416,6 +416,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case LALT_T(LSFT(KC_0)):
             if (record->tap.count && record->event.pressed) {
                 tap_code16(LSFT(KC_0));
+                return false; // Skip default handling
+            }
+            break;
+
+        case LGUI_T(RALT(KC_1)):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(RALT(KC_1));
+                return false; // Skip default handling
+            }
+            break;
+
+        case LALT_T(LSFT(KC_2)):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(LSFT(KC_2));
+                return false; // Skip default handling
+            }
+            break;
+
+        case LSFT_T(LSFT(KC_GRAVE)):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(LSFT(KC_GRAVE));
                 return false; // Skip default handling
             }
             break;
