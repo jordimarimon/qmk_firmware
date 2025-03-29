@@ -213,10 +213,10 @@ enum totem_layers {
 // Custom keycode, starts at SAFE_RANGE
 enum custom_keycodes {
     // Momentary layer 1 on hold, toggle layer 1 on tap
-    MT_TOG_LAYER1 = SAFE_RANGE,
+    MT_LAYER1 = SAFE_RANGE,
 
     // Momentary layer 2 on hold, toggle layer 2 on tap
-    MT_TOG_LAYER2,
+    MT_LAYER2,
 };
 
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
@@ -231,41 +231,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     [_BASE] = LAYOUT(
-                 XXXXXXX,            KC_W,                 KC_E,                   KC_R,               KC_T,           KC_Y,           KC_U,               KC_I,               KC_O,               XXXXXXX,
-                 LGUI_T(KC_A),       LALT_T(KC_S),         LSFT_T(KC_D),           LCTL_T(KC_F),       KC_G,           KC_H,           RCTL_T(KC_J),       RSFT_T(KC_K),       LALT_T(KC_L),       RGUI_T(KC_P),
-        KC_CAPS, KC_Z,               KC_X,                 KC_C,                   KC_V,               KC_B,           KC_N,           KC_M,               KC_Q,               XXXXXXX,            XXXXXXX,            TO(_BASE),
-                                                           KC_BSPC,                KC_ESC,             MT_TOG_LAYER2,  MT_TOG_LAYER1,  KC_ENT,             KC_SPC
+                 XXXXXXX,            KC_W,                 KC_E,                   KC_R,                   KC_T,           KC_Y,           KC_U,               KC_I,               KC_O,               XXXXXXX,
+                 LGUI_T(KC_A),       LALT_T(KC_S),         LSFT_T(KC_D),           LCTL_T(KC_F),           KC_G,           KC_H,           RCTL_T(KC_J),       RSFT_T(KC_K),       LALT_T(KC_L),       RGUI_T(KC_P),
+        KC_CAPS, KC_Z,               KC_X,                 KC_C,                   KC_V,                   KC_B,           KC_N,           KC_M,               KC_Q,               XXXXXXX,            XXXXXXX,            XXXXXXX,
+                                                           KC_BSPC,                KC_ESC,                 MT_LAYER2,      MT_LAYER1,      KC_ENT,             KC_SPC
     ),
 
     [_SYMBOL] = LAYOUT(
-                 XXXXXXX,            LSFT(KC_COMMA),       RSA(KC_QUOTE),          LSFT(KC_DOT),       LSFT(KC_4),     LSFT(KC_6),     KC_LBRC,            LSFT(KC_SEMICOLON), KC_RBRC,            XXXXXXX,
-                 LGUI_T(LSFT(KC_5)), LALT_T(KC_SEMICOLON), LSFT_T(RALT(KC_QUOTE)), LCTL_T(KC_EQUAL),   LSFT(KC_EQUAL), LSFT(KC_7),     RCTL_T(LSFT(KC_9)), RSFT_T(KC_DOT),     LALT_T(LSFT(KC_0)), RGUI_T(KC_SLASH),
-        _______, LSFT(KC_1),         LSFT(KC_8),           KC_GRAVE,               KC_MINUS,           LSFT(KC_SLASH), LSFT(KC_BSLS),  LSFT(KC_LBRC),      KC_COMMA,           LSFT(KC_RBRC),      LSFT(KC_3),         _______,
-                                                           _______,                _______,            _______,        _______,        _______,            _______
+                 XXXXXXX,            LSFT(KC_COMMA),       RSA(KC_QUOTE),          LSFT(KC_DOT),           LSFT(KC_4),     LSFT(KC_6),     KC_LBRC,            LSFT(KC_SEMICOLON), KC_RBRC,            XXXXXXX,
+                 LGUI_T(LSFT(KC_5)), LALT_T(KC_SEMICOLON), LSFT_T(RALT(KC_QUOTE)), LCTL_T(KC_EQUAL),       LSFT(KC_EQUAL), LSFT(KC_7),     RCTL_T(LSFT(KC_9)), RSFT_T(KC_DOT),     LALT_T(LSFT(KC_0)), RGUI_T(KC_SLASH),
+        _______, LSFT(KC_1),         LSFT(KC_8),           KC_GRAVE,               KC_MINUS,               LSFT(KC_SLASH), LSFT(KC_BSLS),  LSFT(KC_LBRC),      KC_COMMA,           LSFT(KC_RBRC),      LSFT(KC_3),         _______,
+                                                           _______,                _______,                _______,        _______,        _______,            _______
     ),
 
 
     [_NUMBER] = LAYOUT(
-                 XXXXXXX,            XXXXXXX,              KC_BSLS,                RALT(KC_X),         XXXXXXX,        XXXXXXX,        KC_7,               KC_8,               KC_9,               XXXXXXX,
-                 LGUI_T(RALT(KC_1)), LALT_T(LSFT(KC_2)),   LSFT_T(LSFT(KC_GRAVE)), LCTL_T(KC_MINUS),   RALT(KC_SLASH), XXXXXXX,        RCTL_T(KC_4),       RSFT_T(KC_5),       LALT_T(KC_6),       RGUI_T(KC_0),
-        _______, XXXXXXX,            XXXXXXX,              KC_QUOTE,               LSFT(KC_QUOTE),     XXXXXXX,        XXXXXXX,        KC_1,               KC_2,               KC_3,               XXXXXXX,            _______,
-                                                           _______,                _______,            _______,        _______,        _______,            _______
+                 XXXXXXX,            XXXXXXX,              KC_BSLS,                RALT(KC_X),             XXXXXXX,        XXXXXXX,        KC_7,               KC_8,               KC_9,               XXXXXXX,
+                 LGUI_T(RALT(KC_1)), LALT_T(LSFT(KC_2)),   LSFT_T(LSFT(KC_GRAVE)), LCTL_T(LSFT(KC_MINUS)), RALT(KC_SLASH), XXXXXXX,        RCTL_T(KC_4),       RSFT_T(KC_5),       LALT_T(KC_6),       RGUI_T(KC_0),
+        _______, XXXXXXX,            XXXXXXX,              KC_QUOTE,               LSFT(KC_QUOTE),         XXXXXXX,        XXXXXXX,        KC_1,               KC_2,               KC_3,               XXXXXXX,            _______,
+                                                           _______,                _______,                _______,        _______,        _______,            _______
     ),
 
     [_FUNC] = LAYOUT(
-                 KC_F1,              KC_F2,                KC_F3,                  KC_F4,              KC_F5,          KC_HOME,        KC_PGDN,            KC_PGUP,            KC_END,             XXXXXXX,
-                 LGUI_T(KC_F6),      LALT_T(KC_F7),        LSFT_T(KC_F8),          LCTL_T(KC_F9),      KC_F10,         KC_LEFT,        KC_DOWN,            KC_UP,              KC_RIGHT,           KC_PSCR,
-        _______, KC_F11,             KC_F12,               XXXXXXX,                XXXXXXX,            XXXXXXX,        KC_KB_MUTE,     KC_KB_VOLUME_DOWN,  KC_KB_VOLUME_UP,    XXXXXXX,            XXXXXXX,            _______,
-                                                           _______,                _______,            _______,        _______,        _______,            _______
+                 KC_F1,              KC_F2,                KC_F3,                  KC_F4,                  KC_F5,          KC_HOME,        KC_PGDN,            KC_PGUP,            KC_END,             XXXXXXX,
+                 LGUI_T(KC_F6),      LALT_T(KC_F7),        LSFT_T(KC_F8),          LCTL_T(KC_F9),          KC_F10,         KC_LEFT,        KC_DOWN,            KC_UP,              KC_RIGHT,           KC_PSCR,
+        _______, KC_F11,             KC_F12,               XXXXXXX,                XXXXXXX,                XXXXXXX,        KC_KB_MUTE,     KC_KB_VOLUME_DOWN,  KC_KB_VOLUME_UP,    XXXXXXX,            XXXXXXX,            _______,
+                                                           _______,                _______,                _______,        _______,        _______,            _______
     )
 
 };
-
-static uint16_t sym_tap_timer;
-static bool sym_layer_toggled = false;
-
-static uint16_t num_tap_timer;
-static bool num_layer_toggled = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // https://docs.qmk.fm/feature_advanced_keycodes#checking-modifier-state
@@ -273,26 +267,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // https://docs.qmk.fm/feature_layers#functions
 
     switch (keycode) {
-        case MT_TOG_LAYER1:
+        case MT_LAYER1:
             if (record->event.pressed) { // Key is being pressed
-                // Start the timer
-                sym_tap_timer = timer_read();
-
                 if (!IS_LAYER_ON(_SYMBOL)) {
                     // Momentarily activate layer
                     layer_on(_SYMBOL);
                 }
             } else { // Key is released
-                if (timer_elapsed(sym_tap_timer) < TAPPING_TERM) {
-                    // Consider it a tap
-                    if (sym_layer_toggled) {
-                        layer_off(_SYMBOL);
-                    }
-
-                    sym_layer_toggled = !sym_layer_toggled;
-                } else if (IS_LAYER_ON(_SYMBOL)) {
+                if (IS_LAYER_ON(_SYMBOL)) {
                     layer_off(_SYMBOL); // Turn off if it was momentary
-                    sym_layer_toggled = false;
                 }
             }
 
@@ -300,26 +283,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
             return false; // Skip default handling
 
-        case MT_TOG_LAYER2:
+        case MT_LAYER2:
             if (record->event.pressed) { // Key is being pressed
-                // Start the timer
-                num_tap_timer = timer_read();
-
                 if (!IS_LAYER_ON(_NUMBER)) {
                     // Momentarily activate layer
                     layer_on(_NUMBER);
                 }
             } else { // Key is released
-                if (timer_elapsed(num_tap_timer) < TAPPING_TERM) {
-                    // Consider it a tap
-                    if (num_layer_toggled) {
-                        layer_off(_NUMBER);
-                    }
-
-                    num_layer_toggled = !num_layer_toggled;
-                } else if (IS_LAYER_ON(_NUMBER)) {
-                    layer_off(_NUMBER); // Turn off if it was momentary
-                    num_layer_toggled = false;
+                if (IS_LAYER_ON(_NUMBER)) {
+                    // Turn off if it was momentary
+                    layer_off(_NUMBER);
                 }
             }
 
@@ -370,38 +343,62 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_C:
             if (record->event.pressed) {
                 if (get_mods() & MOD_MASK_ALT) {
-                    // Alt is being held down, send ç in US intl with dead keys
+                    // Alt is being held down, send ç (US Intl layout)
+
+                    // Save current modifier state
+                    uint8_t mod_state = get_mods();
+
+                    // Clear all modifiers
+                    del_mods(mod_state);
+
+                    // Send Right Alt + Comma
+                    // https://docs.qmk.fm/feature_macros#register-code-kc
                     register_code(KC_RALT);
                     register_code(KC_COMMA);
+                    unregister_code(KC_COMMA);
+                    unregister_code(KC_RALT);
+
+                    // Restore the saved modifier state
+                    set_mods(mod_state);
+
                 } else {
                     register_code(KC_C); // Send c
                 }
             } else {
-                if (get_mods() & MOD_MASK_ALT) {
-                    // Alt is being held down, release ç in US intl with dead keys
-                    unregister_code(KC_RALT);
-                    unregister_code(KC_COMMA);
-                } else {
-                    unregister_code(KC_C); // Release c
+                if (!(get_mods() & MOD_MASK_ALT)) {
+                    unregister_code(KC_C); // Release c (only if ALT is NOT held)
                 }
             }
             return false; // Skip default handling
 
         case KC_N:
             if (record->event.pressed) {
-                // Alt is being held down
                 if (get_mods() & MOD_MASK_ALT) {
+                    // Alt is being held down, send ñ (US Intl layout)
+
+                    // Save current modifier state
+                    uint8_t mod_state = get_mods();
+
+                    // Clear all modifiers
+                    del_mods(mod_state);
+
+                    // Send Right Alt + Comma
+                    // https://docs.qmk.fm/feature_macros#register-code-kc
                     register_code(KC_RALT);
-                }
-
-                register_code(KC_N);
-            } else {
-                // Alt is being held down
-                if (get_mods() & MOD_MASK_ALT) {
+                    register_code(KC_N);
                     unregister_code(KC_RALT);
-                }
+                    unregister_code(KC_N);
 
-                unregister_code(KC_N);
+                    // Restore the saved modifier state
+                    set_mods(mod_state);
+
+                } else {
+                    register_code(KC_N); // Send n
+                }
+            } else {
+                if (!(get_mods() & MOD_MASK_ALT)) {
+                    unregister_code(KC_N); // Release n (only if ALT is NOT held)
+                }
             }
             return false; // Skip default handling
 
@@ -450,6 +447,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case LSFT_T(LSFT(KC_GRAVE)):
             if (record->tap.count && record->event.pressed) {
                 tap_code16(LSFT(KC_GRAVE));
+                return false; // Skip default handling
+            }
+            break;
+
+        case LCTL_T(LSFT(KC_MINUS)):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(LSFT(KC_MINUS));
                 return false; // Skip default handling
             }
             break;
