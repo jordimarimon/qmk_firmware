@@ -219,6 +219,9 @@ enum custom_keycodes {
     MT_TOG_LAYER2,
 };
 
+static bool layer1_toggled = false; // Flag to track if Layer 1 is toggled
+static bool layer2_toggled = false; // Flag to track if Layer 2 is toggled
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
@@ -254,6 +257,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MT_TOG_LAYER1:
+            if (record->event.pressed) {
+                // Is being pressed, start hold behaviour
+                layer1_toggled = false;
+                layer_on(_SYMBOL);
+            } else if (!record->tap.count) {
+                // Not pressed anymore and is not a tap, stop hold behaviour
+                layer_off(_SYMBOL);
+            } else if (layer1_toggled) {
+                // Not pressed anymore and is been tap and the layer is active
+                layer_off(_SYMBOL);
+                layer1_toggled = false;
+            } else {
+                // Not pressed anymore and is been tap and the layer is not active
+                layer_on(_SYMBOL);
+                layer1_toggled = true;
+            }
+            return false;
+
+        case MT_TOG_LAYER2:
+            if (record->event.pressed) {
+                // Is being pressed, start hold behaviour
+                layer2_toggled = false;
+                layer_on(_NUMBER);
+            } else if (!record->tap.count) {
+                // Not pressed anymore and is not a tap, stop hold behaviour
+                layer_off(_NUMBER);
+            } else if (layer2_toggled) {
+                // Not pressed anymore and is been tap and the layer is active
+                layer_off(_NUMBER);
+                layer2_toggled = false;
+            } else {
+                // Not pressed anymore and is been tap and the layer is not active
+                layer_on(_NUMBER);
+                layer2_toggled = true;
+            }
+            return false;
+    }
+
     return true;
 }
 
