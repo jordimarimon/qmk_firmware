@@ -22,6 +22,7 @@
 #define MASTER_LEFT
 
 // Hold-Tap
+#define QUICK_TAP_TERM 120
 #define TAPPING_TERM 200
 #define CHORDAL_HOLD
 
