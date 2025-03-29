@@ -238,7 +238,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_SYMBOL] = LAYOUT(
-                 _______,            LSFT(KC_COMMA),       RSA(KC_QUOTE),          LSFT(KC_DOT),       LSFT(KC_4),     LSFT(KC_6),     KC_LBRC,            LSFT(KC_SEMICOLON), KC_RBRC,            _______,
+                 XXXXXXX,            LSFT(KC_COMMA),       RSA(KC_QUOTE),          LSFT(KC_DOT),       LSFT(KC_4),     LSFT(KC_6),     KC_LBRC,            LSFT(KC_SEMICOLON), KC_RBRC,            XXXXXXX,
                  LGUI_T(LSFT(KC_5)), LALT_T(KC_SEMICOLON), LSFT_T(RALT(KC_QUOTE)), LCTL_T(KC_EQUAL),   LSFT(KC_EQUAL), LSFT(KC_7),     RCTL_T(LSFT(KC_9)), RSFT_T(KC_DOT),     LALT_T(LSFT(KC_0)), RGUI_T(KC_SLASH),
         _______, LSFT(KC_1),         LSFT(KC_8),           KC_GRAVE,               KC_MINUS,           LSFT(KC_SLASH), LSFT(KC_BSLS),  LSFT(KC_LBRC),      KC_COMMA,           LSFT(KC_RBRC),      LSFT(KC_3),         _______,
                                                            _______,                _______,            _______,        _______,        _______,            _______
@@ -246,16 +246,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     [_NUMBER] = LAYOUT(
-                 _______,            _______,              KC_BSLS,                RALT(KC_X),         _______,        _______,        KC_7,               KC_8,               KC_9,               _______,
-                 LGUI_T(RALT(KC_1)), LALT_T(LSFT(KC_2)),   LSFT_T(LSFT(KC_GRAVE)), LCTL_T(KC_MINUS),   RALT(KC_SLASH), _______,        RCTL_T(KC_4),       RSFT_T(KC_5),       LALT_T(KC_6),       RGUI_T(KC_0),
-        _______, _______,            _______,              KC_QUOTE,               LSFT(KC_QUOTE),     _______,        _______,        KC_1,               KC_2,               KC_3,               _______,            _______,
+                 XXXXXXX,            XXXXXXX,              KC_BSLS,                RALT(KC_X),         XXXXXXX,        XXXXXXX,        KC_7,               KC_8,               KC_9,               XXXXXXX,
+                 LGUI_T(RALT(KC_1)), LALT_T(LSFT(KC_2)),   LSFT_T(LSFT(KC_GRAVE)), LCTL_T(KC_MINUS),   RALT(KC_SLASH), XXXXXXX,        RCTL_T(KC_4),       RSFT_T(KC_5),       LALT_T(KC_6),       RGUI_T(KC_0),
+        _______, XXXXXXX,            XXXXXXX,              KC_QUOTE,               LSFT(KC_QUOTE),     XXXXXXX,        XXXXXXX,        KC_1,               KC_2,               KC_3,               XXXXXXX,            _______,
                                                            _______,                _______,            _______,        _______,        _______,            _______
     ),
 
     [_FUNC] = LAYOUT(
-                 _______,            _______,              _______,                _______,            _______,        _______,        _______,            _______,            _______,            _______,
-                 _______,            _______,              _______,                _______,            _______,        _______,        _______,            _______,            _______,            _______,
-        _______, _______,            _______,              _______,                _______,            _______,        _______,        _______,            _______,            _______,            _______,            _______,
+                 KC_F1,              KC_F2,                KC_F3,                  KC_F4,              KC_F5,          KC_HOME,        KC_PGDN,            KC_PGUP,            KC_END,             XXXXXXX,
+                 LGUI_T(KC_F6),      LALT_T(KC_F7),        LSFT_T(KC_F8),          LCTL_T(KC_F9),      KC_F10,         KC_LEFT,        KC_DOWN,            KC_UP,              KC_RIGHT,           KC_PSCR,
+        _______, KC_F11,             KC_F12,               XXXXXXX,                XXXXXXX,            XXXXXXX,        KC_KB_MUTE,     KC_KB_VOLUME_DOWN,  KC_KB_VOLUME_UP,    XXXXXXX,            XXXXXXX,            _______,
                                                            _______,                _______,            _______,        _______,        _______,            _______
     )
 
