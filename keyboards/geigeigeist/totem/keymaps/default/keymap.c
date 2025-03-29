@@ -257,6 +257,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // https://docs.qmk.fm/feature_advanced_keycodes#checking-modifier-state
     switch (keycode) {
         case MT_TOG_LAYER1:
             if (record->event.pressed) {
@@ -333,6 +334,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     // Shift is not being held down
                     unregister_code(KC_SPC); // Release Space
                 }
+            }
+            return false; // Skip default handling
+
+        case KC_C:
+            if (record->event.pressed) {
+                if (get_mods() & MOD_MASK_ALT) {
+                    // Alt is being held down, send ç in US intl with dead keys
+                    register_code(KC_RALT);
+                    register_code(KC_COMMA);
+                } else {
+                    register_code(KC_C); // Send c
+                }
+            } else {
+                if (get_mods() & MOD_MASK_ALT) {
+                    // Alt is being held down, release ç in US intl with dead keys
+                    unregister_code(KC_RALT);
+                    unregister_code(KC_COMMA);
+                } else {
+                    unregister_code(KC_C); // Release c
+                }
+            }
+            return false; // Skip default handling
+
+        case KC_N:
+            if (record->event.pressed) {
+                // Alt is being held down
+                if (get_mods() & MOD_MASK_ALT) {
+                    register_code(KC_RALT);
+                }
+
+                register_code(KC_N);
+            } else {
+                // Alt is being held down
+                if (get_mods() & MOD_MASK_ALT) {
+                    unregister_code(KC_RALT);
+                }
+
+                unregister_code(KC_N);
             }
             return false; // Skip default handling
     }
