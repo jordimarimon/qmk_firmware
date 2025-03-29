@@ -210,18 +210,53 @@ enum totem_layers {
     _FUNC,
 };
 
+// Custom keycode, starts at SAFE_RANGE
+enum custom_keycodes {
+    // Momentary layer 1 on hold, toggle layer 1 on tap
+    MT_TOG_LAYER1 = SAFE_RANGE,
+
+    // Momentary layer 2 on hold, toggle layer 2 on tap
+    MT_TOG_LAYER2,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     [_BASE] = LAYOUT(
-                 KC_Q,               KC_W,                KC_E,               KC_R,               KC_T,       KC_Y,    KC_U,               KC_I,               KC_O,               KC_P,
-                 MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_S),  MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,       KC_H,    MT(MOD_RSFT, KC_J), MT(MOD_LCTL, KC_K), MT(MOD_LALT, KC_L), MT(MOD_LGUI, KC_SCLN),
-        KC_Q,    KC_Z,               KC_X,                KC_C,               KC_V,               KC_B,       KC_N,    KC_M,               KC_COMM,            KC_DOT,             KC_SLSH,               KC_P,
-                                                          KC_DEL,             LT(2, KC_TAB),      KC_SPC,     KC_ENT,  LT(3, KC_ESC),      KC_BSPC
+                 XXXXXXX,            KC_W,                KC_E,               KC_R,               KC_T,          KC_Y,           KC_U,               KC_I,               KC_O,               XXXXXXX,
+                 MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_S),  MT(MOD_LSFT, KC_D), MT(MOD_LCTL, KC_F), KC_G,          KC_H,           MT(MOD_RCTL, KC_J), MT(MOD_RSFT, KC_K), MT(MOD_LALT, KC_L), MT(MOD_RGUI, KC_P),
+        KC_CAPS, KC_Z,               KC_X,                KC_C,               KC_V,               KC_B,          KC_N,           KC_M,               KC_Q,               XXXXXXX,            XXXXXXX,               TO(_BASE),
+                                                          KC_BSPC,            KC_ESC,             MT_TOG_LAYER2, MT_TOG_LAYER1,  KC_ENT,             KC_SPC
     ),
+
+    [_SYMBOL] = LAYOUT(
+                 _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,
+                 _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,
+        _______, _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,               _______,
+                                                          _______,            _______,            _______,       _______,        _______,            _______
+    ),
+
+
+    [_NUMBER] = LAYOUT(
+                 _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,
+                 _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,
+        _______, _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,               _______,
+                                                          _______,            _______,            _______,       _______,        _______,            _______
+    ),
+
+    [_FUNC] = LAYOUT(
+                 _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,
+                 _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,
+        _______, _______,            _______,             _______,            _______,            _______,       _______,        _______,            _______,            _______,            _______,               _______,
+                                                          _______,            _______,            _______,       _______,        _______,            _______
+    )
 
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    return state;
 }
