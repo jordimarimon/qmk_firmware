@@ -266,6 +266,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // https://docs.qmk.fm/mod_tap#intercepting-mod-taps
     // https://docs.qmk.fm/feature_layers#functions
 
+    // Save current modifier state
+    uint8_t mod_state = get_mods();
+
     switch (keycode) {
         case MT_LAYER1:
             if (record->event.pressed) { // Key is being pressed
@@ -302,52 +305,53 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case KC_BSPC:
             if (record->event.pressed) {
-                if (get_mods() & MOD_MASK_SHIFT) {
-                    // Shift is being held down
-                    register_code(KC_DEL); // Send Delete
+                if (mod_state & MOD_MASK_SHIFT) {
+                    // Clear all modifiers
+                    del_mods(mod_state);
+
+                    // Send Delete
+                    // https://docs.qmk.fm/feature_macros#register-code-kc
+                    register_code(KC_DEL);
+                    unregister_code(KC_DEL);
+
+                    // Restore the saved modifier state
+                    set_mods(mod_state);
                 } else {
-                    // Shift is not being held down
-                    register_code(KC_BSPC); // Send Backspace
+                    register_code(KC_BSPC); // Send backspace
                 }
             } else {
-                if (get_mods() & MOD_MASK_SHIFT) {
-                    // Shift is being held down
-                    unregister_code(KC_DEL); // Release Delete
-                } else {
-                    // Shift is not being held down
-                    unregister_code(KC_BSPC); // Release Backspace
+                if (!(mod_state & MOD_MASK_SHIFT)) {
+                    unregister_code(KC_BSPC); // Release backspace
                 }
             }
             return false; // Skip default handling
 
         case KC_SPC:
             if (record->event.pressed) {
-                if (get_mods() & MOD_MASK_SHIFT) {
-                    // Shift is being held down
-                    register_code(KC_TAB); // Send Tab
+                if (mod_state & MOD_MASK_SHIFT) {
+                    // Clear all modifiers
+                    del_mods(mod_state);
+
+                    // Send Tab
+                    // https://docs.qmk.fm/feature_macros#register-code-kc
+                    register_code(KC_TAB);
+                    unregister_code(KC_TAB);
+
+                    // Restore the saved modifier state
+                    set_mods(mod_state);
                 } else {
-                    // Shift is not being held down
-                    register_code(KC_SPC); // Send Space
+                    register_code(KC_SPC); // Send space
                 }
             } else {
-                if (get_mods() & MOD_MASK_SHIFT) {
-                    // Shift is being held down
-                    unregister_code(KC_TAB); // Release Tab
-                } else {
-                    // Shift is not being held down
-                    unregister_code(KC_SPC); // Release Space
+                if (!(mod_state & MOD_MASK_SHIFT)) {
+                    unregister_code(KC_SPC); // Release space
                 }
             }
             return false; // Skip default handling
 
         case KC_C:
             if (record->event.pressed) {
-                if (get_mods() & MOD_MASK_ALT) {
-                    // Alt is being held down, send ç (US Intl layout)
-
-                    // Save current modifier state
-                    uint8_t mod_state = get_mods();
-
+                if (mod_state & MOD_MASK_ALT) {
                     // Clear all modifiers
                     del_mods(mod_state);
 
@@ -360,12 +364,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
                     // Restore the saved modifier state
                     set_mods(mod_state);
-
                 } else {
                     register_code(KC_C); // Send c
                 }
             } else {
-                if (!(get_mods() & MOD_MASK_ALT)) {
+                if (!(mod_state & MOD_MASK_ALT)) {
                     unregister_code(KC_C); // Release c (only if ALT is NOT held)
                 }
             }
@@ -373,12 +376,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case KC_N:
             if (record->event.pressed) {
-                if (get_mods() & MOD_MASK_ALT) {
-                    // Alt is being held down, send ñ (US Intl layout)
-
-                    // Save current modifier state
-                    uint8_t mod_state = get_mods();
-
+                if (mod_state & MOD_MASK_ALT) {
                     // Clear all modifiers
                     del_mods(mod_state);
 
@@ -391,12 +389,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
                     // Restore the saved modifier state
                     set_mods(mod_state);
-
                 } else {
                     register_code(KC_N); // Send n
                 }
             } else {
-                if (!(get_mods() & MOD_MASK_ALT)) {
+                if (!(mod_state & MOD_MASK_ALT)) {
                     unregister_code(KC_N); // Release n (only if ALT is NOT held)
                 }
             }
