@@ -25,6 +25,7 @@
 #define QUICK_TAP_TERM 120
 #define TAPPING_TERM 200
 #define CHORDAL_HOLD
+#define PERMISSIVE_HOLD
 
 // Auto Shift
 #define NO_AUTO_SHIFT_ALPHA

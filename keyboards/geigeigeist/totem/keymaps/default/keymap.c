@@ -210,15 +210,6 @@ enum totem_layers {
     _FUNC,
 };
 
-// Custom keycode, starts at SAFE_RANGE
-enum custom_keycodes {
-    // Momentary layer 1 on hold, toggle layer 1 on tap
-    MT_LAYER1 = SAFE_RANGE,
-
-    // Momentary layer 2 on hold, toggle layer 2 on tap
-    MT_LAYER2,
-};
-
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
     LAYOUT(
         'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R',
@@ -234,7 +225,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  XXXXXXX,            KC_W,                 KC_E,                   KC_R,                   KC_T,           KC_Y,           KC_U,               KC_I,               KC_O,               XXXXXXX,
                  LGUI_T(KC_A),       LALT_T(KC_S),         LSFT_T(KC_D),           LCTL_T(KC_F),           KC_G,           KC_H,           RCTL_T(KC_J),       RSFT_T(KC_K),       LALT_T(KC_L),       RGUI_T(KC_P),
         KC_CAPS, KC_Z,               KC_X,                 KC_C,                   KC_V,                   KC_B,           KC_N,           KC_M,               KC_Q,               XXXXXXX,            XXXXXXX,            XXXXXXX,
-                                                           KC_BSPC,                KC_ESC,                 MT_LAYER2,      MT_LAYER1,      KC_ENT,             KC_SPC
+                                                           KC_BSPC,                KC_ESC,                 MO(_NUMBER),    MO(_SYMBOL),    KC_ENT,             KC_SPC
     ),
 
     [_SYMBOL] = LAYOUT(
@@ -270,39 +261,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t mod_state = get_mods();
 
     switch (keycode) {
-        case MT_LAYER1:
-            if (record->event.pressed) { // Key is being pressed
-                if (!IS_LAYER_ON(_SYMBOL)) {
-                    // Momentarily activate layer
-                    layer_on(_SYMBOL);
-                }
-            } else { // Key is released
-                if (IS_LAYER_ON(_SYMBOL)) {
-                    layer_off(_SYMBOL); // Turn off if it was momentary
-                }
-            }
-
-            update_tri_layer(_SYMBOL, _NUMBER, _FUNC);
-
-            return false; // Skip default handling
-
-        case MT_LAYER2:
-            if (record->event.pressed) { // Key is being pressed
-                if (!IS_LAYER_ON(_NUMBER)) {
-                    // Momentarily activate layer
-                    layer_on(_NUMBER);
-                }
-            } else { // Key is released
-                if (IS_LAYER_ON(_NUMBER)) {
-                    // Turn off if it was momentary
-                    layer_off(_NUMBER);
-                }
-            }
-
-            update_tri_layer(_SYMBOL, _NUMBER, _FUNC);
-
-            return false; // Skip default handling
-
         case KC_BSPC:
             if (record->event.pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
